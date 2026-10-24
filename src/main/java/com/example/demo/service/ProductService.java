@@ -31,7 +31,8 @@ public class ProductService {
                     ProductVariant v = p.getVariants().stream()
                             .min(Comparator.comparingInt(ProductVariant::getPrice)).get();
                     return new ProductSummary(p.getId(), p.getName(), p.getBrand().getName(),
-                            p.getGender(), p.getImageUrl(), v.getPrice(), v.getSizeMl(), v.getId());
+                            p.getGender(), p.getImageUrl(), v.getPrice(), v.getSizeMl(), v.getId(),
+                            p.getDescription());
                 }).toList();
     }
 

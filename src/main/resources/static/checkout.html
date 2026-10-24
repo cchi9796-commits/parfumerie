@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán - PARFUMERIE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { darkBg: '#121212', cardBg: '#1a1a1a', gold: '#C5A059', 'gold-light': '#dfc196' },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased min-h-screen">
+
+<header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+        <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-gold">PARFUMERIE</a>
+        <a href="index.html" class="text-sm text-gray-400 hover:text-gold">← Tiếp tục mua sắm</a>
+    </div>
+</header>
+
+<main class="pt-28 pb-16 max-w-5xl mx-auto px-4">
+    <h1 class="font-serif text-3xl font-bold text-gold mb-8">Thanh toán đơn hàng</h1>
+
+    <div class="grid lg:grid-cols-5 gap-8">
+        <!-- Form -->
+        <div class="lg:col-span-3 space-y-6">
+            <div class="bg-cardBg border border-gray-800 rounded-lg p-6">
+                <h2 class="font-serif text-xl font-semibold mb-5">Thông tin giao hàng</h2>
+                <form id="checkout-form" class="space-y-4">
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1.5">Họ và tên *</label>
+                            <input type="text" id="ship-name" required
+                                   class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1.5">Số điện thoại *</label>
+                            <input type="tel" id="ship-phone" required
+                                   class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1.5">Địa chỉ nhận hàng *</label>
+                        <textarea id="ship-address" rows="2" required
+                                  class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold resize-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gray-400 mb-1.5">Ghi chú</label>
+                        <input type="text" id="ship-note" placeholder="Ghi chú thêm cho đơn hàng..."
+                               class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold">
+                    </div>
+                </form>
+            </div>
+
+            <div class="bg-cardBg border border-gray-800 rounded-lg p-6">
+                <h2 class="font-serif text-xl font-semibold mb-5">Phương thức thanh toán</h2>
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 p-4 border border-gray-700 rounded cursor-pointer hover:border-gold transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/5">
+                        <input type="radio" name="payment" value="bank" checked class="accent-gold">
+                        <div>
+                            <p class="font-medium text-sm">Chuyển khoản ngân hàng / QR</p>
+                            <p class="text-xs text-gray-400">Quét mã QR hoặc chuyển khoản</p>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-4 border border-gray-700 rounded cursor-pointer hover:border-gold transition-colors has-[:checked]:border-gold has-[:checked]:bg-gold/5">
+                        <input type="radio" name="payment" value="cod" class="accent-gold">
+                        <div>
+                            <p class="font-medium text-sm">Thanh toán khi nhận hàng (COD)</p>
+                            <p class="text-xs text-gray-400">Thanh toán bằng tiền mặt khi nhận hàng</p>
+                        </div>
+                    </label>
+                </div>
+
+                <div id="qr-section" class="mt-6 p-5 bg-darkBg border border-dashed border-gold/50 rounded-lg text-center">
+                    <p class="text-sm text-gray-300 mb-3">Quét mã QR để thanh toán</p>
+                    <img id="qr-img" src="https://img.vietqr.io/image/970422-0123456789-compact2.png?amount=0&addInfo=PARFUMERIE"
+                         alt="QR" class="mx-auto w-48 h-48 rounded border border-gray-700">
+                    <div class="mt-3 text-xs text-gray-400 space-y-1">
+                        <p>Ngân hàng: <strong class="text-gray-200">MB Bank</strong></p>
+                        <p>STK: <strong class="text-gray-200">0123456789</strong></p>
+                        <p>Chủ TK: <strong class="text-gray-200">PARFUMERIE LUXURY</strong></p>
+                        <p>Nội dung: <strong id="qr-content" class="text-gold">PF-XXXXX</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order summary -->
+        <div class="lg:col-span-2">
+            <div class="bg-cardBg border border-gray-800 rounded-lg p-6 sticky top-28">
+                <h2 class="font-serif text-xl font-semibold mb-5">Đơn hàng</h2>
+                <div id="summary-items" class="space-y-4 max-h-64 overflow-y-auto mb-4"></div>
+                <div class="border-t border-gray-800 pt-4 space-y-2 text-sm">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Tạm tính</span>
+                        <span id="sum-subtotal">0 đ</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Phí vận chuyển</span>
+                        <span>Miễn phí</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-serif font-bold text-gold pt-2">
+                        <span>Tổng cộng</span>
+                        <span id="sum-total">0 đ</span>
+                    </div>
+                </div>
+                <button id="btn-place-order"
+                        class="w-full mt-6 bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors rounded">
+                    Đặt hàng
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = getCart();
+        if (cart.length === 0) {
+            showToast('Giỏ hàng trống', 'error');
+            setTimeout(() => location.href = 'index.html', 800);
+            return;
+        }
+
+        // Giỏ hàng cũ (thêm trước khi nối API) không có variantId -> không đặt hàng được
+        if (cart.some(i => !i.variantId)) {
+            localStorage.removeItem(CART_KEY);
+            showToast('Giỏ hàng cũ không còn hợp lệ, vui lòng chọn lại sản phẩm', 'error');
+            setTimeout(() => location.href = 'index.html', 1500);
+            return;
+        }
+
+        const user = getCurrentUser();
+        if (user) {
+            document.getElementById('ship-name').value = user.name || '';
+            document.getElementById('ship-phone').value = user.phone || '';
+            document.getElementById('ship-address').value = user.address || '';
+        }
+
+        const itemsEl = document.getElementById('summary-items');
+        itemsEl.innerHTML = cart.map(i => `
+                <div class="flex gap-3 text-sm">
+                    <img src="${esc(i.image)}" class="w-14 h-16 object-cover rounded border border-gray-800">
+                    <div class="flex-1">
+                        <p class="font-medium line-clamp-1">${esc(i.name)}</p>
+                        <p class="text-xs text-gray-400">${i.size}ml × ${i.qty}</p>
+                    </div>
+                    <p class="text-gold whitespace-nowrap">${formatPrice(i.price * i.qty)}</p>
+                </div>
+            `).join('');
+
+        const total = getCartTotal();
+        document.getElementById('sum-subtotal').textContent = formatPrice(total);
+        document.getElementById('sum-total').textContent = formatPrice(total);
+
+        // Mã đơn dùng làm nội dung chuyển khoản; server sẽ giữ đúng mã này nếu hợp lệ
+        const orderCode = 'PF' + String(Date.now()).slice(-6);
+        document.getElementById('qr-content').textContent = orderCode;
+        document.getElementById('qr-img').src =
+            `https://img.vietqr.io/image/970422-0123456789-compact2.png?amount=${total}&addInfo=${orderCode}`;
+
+        const toggleQr = () => {
+            document.getElementById('qr-section').style.display =
+                document.querySelector('input[name="payment"]:checked').value === 'bank' ? 'block' : 'none';
+        };
+        document.querySelectorAll('input[name="payment"]').forEach(r => r.addEventListener('change', toggleQr));
+        toggleQr();
+
+        const btn = document.getElementById('btn-place-order');
+        btn.addEventListener('click', async () => {
+            const form = document.getElementById('checkout-form');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!getCurrentUser()) {
+                showToast('Vui lòng đăng nhập trước khi đặt hàng', 'error');
+                setTimeout(() => location.href = 'auth.html', 900);
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Đang xử lý...';
+            try {
+                const order = await api('/orders', 'POST', {
+                    orderCode,
+                    items: cart.map(i => ({ variantId: i.variantId, qty: i.qty })),
+                    shipping: {
+                        name: document.getElementById('ship-name').value.trim(),
+                        phone: document.getElementById('ship-phone').value.trim(),
+                        address: document.getElementById('ship-address').value.trim(),
+                        note: document.getElementById('ship-note').value.trim()
+                    },
+                    paymentMethod: document.querySelector('input[name="payment"]:checked').value
+                });
+
+                localStorage.removeItem(CART_KEY);
+                showToast('Đặt hàng thành công!');
+                setTimeout(() => location.href = `order-detail.html?id=${order.id}`, 1000);
+            } catch (err) {
+                showToast(err.message, 'error');
+                btn.disabled = false;
+                btn.textContent = 'Đặt hàng';
+            }
+        });
+    });
+</script>
+</body>
+</html>

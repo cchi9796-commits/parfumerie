@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm | L'Élixir</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS chung -->
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#E6C987',
+                            dark: '#9A7B38'
+                        },
+                        darkBg: '#121212',
+                        cardBg: '#1E1E1E'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-gold selection:text-black">
+
+<!-- HEADER / NAVBAR -->
+<header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="index.html" class="font-serif text-2xl md:text-3xl font-bold tracking-widest text-gold">
+            L'ÉLIXIR
+        </a>
+        <nav class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider font-medium">
+            <a href="index.html#home" class="hover:text-gold transition-colors">Trang Chủ</a>
+            <a href="index.html#about" class="hover:text-gold transition-colors">Về Chúng Tôi</a>
+            <a href="index.html#products" class="text-gold transition-colors">Bộ Sưu Tập</a>
+            <a href="index.html#contact" class="hover:text-gold transition-colors">Liên Hệ</a>
+            <a href="auth.html" class="hover:text-gold transition-colors">Đăng nhập</a>
+        </nav>
+        <div class="flex items-center space-x-6">
+            <button id="cart-btn" class="relative text-gray-200 hover:text-gold transition-colors focus:outline-none">
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN PRODUCT DETAIL SECTION -->
+<main class="pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="text-xs uppercase tracking-wider text-gray-400 mb-8">
+        <a href="index.html" class="hover:text-gold">Trang Chủ</a>
+        <span class="mx-2">/</span>
+        <a href="index.html#products" class="hover:text-gold">Bộ Sưu Tập</a>
+        <span class="mx-2">/</span>
+        <span id="crumb-name" class="text-gold">Đang tải...</span>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+
+        <!-- Cột Hình Ảnh Sản Phẩm -->
+        <div class="space-y-4">
+            <div class="bg-cardBg rounded border border-gray-800 overflow-hidden relative group h-[450px] sm:h-[550px]">
+                <img id="main-product-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Sản phẩm" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            </div>
+        </div>
+
+        <!-- Cột Thông Tin Sản Phẩm -->
+        <div>
+            <span id="product-meta" class="text-xs uppercase tracking-[0.2em] text-gray-400 block mb-2">&nbsp;</span>
+            <h1 id="product-name" class="font-serif text-3xl sm:text-4xl font-bold mb-4">Đang tải...</h1>
+
+            <!-- Đánh giá sao -->
+            <div class="flex items-center space-x-2 mb-6">
+                <div class="text-gold text-sm">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <span class="text-xs text-gray-400">(48 Đánh giá của khách hàng)</span>
+            </div>
+
+            <div class="text-2xl sm:text-3xl font-serif font-bold text-gold mb-6" id="product-price-display">...</div>
+
+            <p id="product-desc" class="text-gray-300 font-light leading-relaxed mb-6 border-b border-gray-800 pb-6"></p>
+
+            <!-- Chọn Dung Tích (Size Options) -->
+            <div class="mb-6">
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-3 font-semibold">Chọn Dung Tích:</label>
+                <div id="size-options" class="flex flex-wrap gap-4"></div>
+                <p id="stock-note" class="text-xs text-gray-500 mt-3"></p>
+            </div>
+
+            <!-- Chọn Số Lượng & Nút Thêm Vào Giỏ -->
+            <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                <div class="flex items-center border border-gray-700 bg-cardBg rounded">
+                    <button onclick="adjustQuantity(-1)" class="px-4 py-3 text-gray-400 hover:text-gold transition-colors">-</button>
+                    <span id="quantity-input" class="px-4 py-3 font-semibold text-sm">1</span>
+                    <button onclick="adjustQuantity(1)" class="px-4 py-3 text-gray-400 hover:text-gold transition-colors">+</button>
+                </div>
+                <button onclick="handleAddCurrentProduct()" class="flex-1 bg-gold text-black font-semibold py-4 px-8 uppercase tracking-wider text-sm hover:bg-gold-light transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bag-shopping"></i> Thêm Vào Giỏ Hàng
+                </button>
+            </div>
+
+            <!-- Thông tin cam kết bổ sung -->
+            <div class="grid grid-cols-2 gap-4 pt-6 border-t border-gray-800 text-xs text-gray-400">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-truck-fast text-gold text-lg"></i>
+                    <span>Miễn phí giao hàng toàn quốc đơn từ 1.000.000đ</span>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-shield-halved text-gold text-lg"></i>
+                    <span>Cam kết chính hãng 100% từ Pháp</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Các Tầng Hương (chỉ hiện cho Royal Noir Extrait) -->
+    <div id="notes-section" class="mt-24 border-t border-gray-800 pt-16" style="display:none">
+        <h2 class="font-serif text-2xl font-bold text-center mb-12">Hành Trình Mùi Hương (Notes)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-cardBg p-6 rounded border border-gray-800 text-center">
+                <div class="w-12 h-12 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-serif font-bold">1</div>
+                <h3 class="font-serif font-bold text-lg mb-2 text-gold">Hương Đầu (Top Notes)</h3>
+                <p class="text-sm text-gray-400 font-light">Cam Bergamot, Tiêu Đen, Nhục Đậu Khấu tươi mát mở màn đầy sảng khoái.</p>
+            </div>
+            <div class="bg-cardBg p-6 rounded border border-gray-800 text-center">
+                <div class="w-12 h-12 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-serif font-bold">2</div>
+                <h3 class="font-serif font-bold text-lg mb-2 text-gold">Hương Giữa (Heart Notes)</h3>
+                <p class="text-sm text-gray-400 font-light">Gỗ Tuyết Tùng, Hoa Hồng Đan Mạch, Hoắc Hương tạo nên chiều sâu cuốn hút.</p>
+            </div>
+            <div class="bg-cardBg p-6 rounded border border-gray-800 text-center">
+                <div class="w-12 h-12 bg-gold/10 text-gold rounded-full flex items-center justify-center mx-auto mb-4 text-lg font-serif font-bold">3</div>
+                <h3 class="font-serif font-bold text-lg mb-2 text-gold">Hương Cuối (Base Notes)</h3>
+                <p class="text-sm text-gray-400 font-light">Hổ Phách, Gỗ Trầm Hương (Oud), Xạ Hương lưu luyến bền bỉ trên da.</p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER SECTION -->
+<footer class="bg-cardBg border-t border-gray-800 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500 font-light">
+        &copy; 2026 L'Élixir Perfume House. All rights reserved.
+    </div>
+</footer>
+
+<!-- SHOPPING CART DRAWER MODAL -->
+<div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+    <div id="cart-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+        <div class="w-screen max-w-md bg-cardBg border-l border-gray-800 flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+                <h2 class="font-serif text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-gold"></i> Giỏ Hàng Của Bạn
+                </h2>
+                <button id="close-cart" class="text-gray-400 hover:text-gold text-lg focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-6 border-t border-gray-800 bg-darkBg">
+                <div class="flex justify-between text-base font-semibold mb-4">
+                    <span class="text-gray-400">Tổng Tạm Tính:</span>
+                    <span id="cart-total" class="font-serif text-lg text-gold">0 đ</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors">
+                    Tiến Hành Thanh Toán
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nạp file JavaScript riêng biệt -->
+<script src="script.js"></script>
+<script>
+    let product = null;
+    let currentVariant = null;
+    let currentQty = 1;
+
+    async function loadProduct() {
+        const id = new URLSearchParams(location.search).get('id');
+        if (!id) { location.href = 'index.html'; return; }
+
+        try {
+            product = await api('/products/' + encodeURIComponent(id));
+        } catch (e) {
+            showToast(e.message, 'error');
+            setTimeout(() => location.href = 'index.html', 1200);
+            return;
+        }
+        if (!product.variants.length) {
+            showToast('Sản phẩm chưa có dung tích để bán', 'error');
+            return;
+        }
+
+        document.title = product.name + " - Chi Tiết Sản Phẩm | L'Élixir";
+        document.getElementById('crumb-name').textContent = product.name;
+        document.getElementById('product-name').textContent = product.name;
+        document.getElementById('product-meta').textContent = product.brand + ' • ' + product.gender;
+        document.getElementById('product-desc').textContent = product.description || '';
+
+        const img = document.getElementById('main-product-img');
+        img.src = product.imageUrl;
+        img.alt = product.name;
+
+        // Phần "Notes" chỉ có nội dung cho Royal Noir Extrait
+        document.getElementById('notes-section').style.display =
+            product.name.startsWith('Royal Noir') ? '' : 'none';
+
+        document.getElementById('size-options').innerHTML = product.variants.map(v => `
+                <button onclick="selectSize(${v.id})" id="size-${v.id}"
+                    class="size-btn px-6 py-3 border border-gray-700 bg-cardBg text-gray-300 hover:border-gold text-xs font-semibold uppercase tracking-wider transition-all">
+                    ${v.sizeMl}ml - ${v.price.toLocaleString('vi-VN')}đ
+                </button>`).join('');
+
+        selectSize(product.variants[0].id);
+    }
+
+    function selectSize(variantId) {
+        currentVariant = product.variants.find(v => v.id === variantId);
+        document.getElementById('product-price-display').textContent = formatPrice(currentVariant.price);
+        document.getElementById('stock-note').textContent =
+            currentVariant.stock > 0 ? 'Còn ' + currentVariant.stock + ' sản phẩm' : 'Tạm hết hàng';
+
+        document.querySelectorAll('.size-btn').forEach(b => {
+            b.classList.remove('border-gold', 'bg-gold', 'text-black');
+            b.classList.add('border-gray-700', 'bg-cardBg', 'text-gray-300');
+        });
+        const active = document.getElementById('size-' + variantId);
+        if (active) {
+            active.classList.add('border-gold', 'bg-gold', 'text-black');
+            active.classList.remove('border-gray-700', 'bg-cardBg', 'text-gray-300');
+        }
+    }
+
+    function adjustQuantity(delta) {
+        currentQty = Math.max(1, currentQty + delta);
+        document.getElementById('quantity-input').textContent = currentQty;
+    }
+
+    function handleAddCurrentProduct() {
+        if (!currentVariant) return;
+        if (currentVariant.stock < currentQty) {
+            showToast('Không đủ hàng', 'error');
+            return;
+        }
+        addToCart(currentVariant.id, product.name, currentVariant.price,
+            product.imageUrl, currentVariant.sizeMl, currentQty);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProduct);
+</script>
+
+</body>
+</html>

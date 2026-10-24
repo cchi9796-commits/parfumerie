@@ -1,0 +1,118 @@
+/* Custom styles bổ sung bên ngoài Tailwind */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #121212;
+    color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tùy chỉnh thanh cuộn cho đẹp mắt */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+::-webkit-scrollbar-thumb {
+    background: #C5A059;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9A7B38;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #121212;
+    color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tùy chỉnh thanh cuộn đồng điệu */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+::-webkit-scrollbar-thumb {
+    background: #C5A059;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9A7B38;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #121212;
+    color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tùy chỉnh thanh cuộn */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+::-webkit-scrollbar-thumb {
+    background: #C5A059;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #9A7B38;
+}
+/* ==========================================================
+   CUSTOM STYLES CHO HỆ THỐNG WEBSITE NƯỚC HOA L'ÉLIXIR
+   ================================================---------- */
+
+/* Thiết lập chung màu nền và chống cuộn ngang tràn màn hình */
+body {
+    background-color: #121212;
+    color: #f3f4f6;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tùy chỉnh thanh cuộn (Scrollbar) cho đẹp mắt, hợp tông màu đen/vàng gold */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2D2D2D;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #C5A059; /* Màu Vàng Gold khi rê chuột vào thanh cuộn */
+}
+
+/* Hiệu ứng chọn chữ (Selection) trên trang */
+::selection {
+    background-color: #C5A059;
+    color: #000000;
+}
+
+/* Hiệu ứng chuyển động mượt mà cho các liên kết */
+a, button {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng mờ nền chuyên nghiệp cho Drawer Giỏ Hàng hoặc Modal */
+#cart-drawer {
+    backdrop-filter: blur(4px);
+}

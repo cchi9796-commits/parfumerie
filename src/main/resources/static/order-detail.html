@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đơn hàng - PARFUMERIE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { darkBg: '#121212', cardBg: '#1a1a1a', gold: '#C5A059', 'gold-light': '#dfc196' },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased min-h-screen">
+
+<header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-gold">PARFUMERIE</a>
+        <nav class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider font-medium">
+            <a href="index.html" class="hover:text-gold transition-colors">Trang Chủ</a>
+            <a href="orders.html" class="text-gold">Đơn hàng</a>
+            <a href="auth.html" class="hover:text-gold transition-colors">Đăng nhập</a>
+        </nav>
+        <div class="flex items-center space-x-6">
+            <button id="cart-btn" class="relative text-gray-200 hover:text-gold transition-colors">
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="pt-28 pb-16 max-w-3xl mx-auto px-4">
+    <a href="orders.html" class="text-sm text-gray-400 hover:text-gold mb-6 inline-flex items-center gap-1">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+    </a>
+
+    <div id="order-content">
+        <p class="text-center text-gray-500 py-20">Đang tải đơn hàng...</p>
+    </div>
+</main>
+
+<div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+    <div id="cart-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+        <div class="w-screen max-w-md bg-cardBg border-l border-gray-800 flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+                <h2 class="font-serif text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-gold"></i> Giỏ Hàng
+                </h2>
+                <button id="close-cart" class="text-gray-400 hover:text-gold text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-6 border-t border-gray-800 bg-darkBg">
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-400">Tổng tạm tính:</span>
+                    <span id="cart-total" class="font-serif text-lg text-gold">0 đ</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors">
+                    Tiến Hành Thanh Toán
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    const STATUS_MAP = {
+        pending:   { label: 'Chờ xác nhận',  color: 'text-yellow-400' },
+        confirmed: { label: 'Đã xác nhận',   color: 'text-blue-400' },
+        shipping:  { label: 'Đang giao',     color: 'text-purple-400' },
+        completed: { label: 'Hoàn thành',    color: 'text-green-400' },
+        cancelled: { label: 'Đã hủy',        color: 'text-red-400' }
+    };
+
+    async function cancelOrder(code) {
+        if (!confirm('Bạn chắc chắn muốn hủy đơn hàng này?')) return;
+        try {
+            await api('/orders/' + encodeURIComponent(code) + '/cancel', 'PATCH');
+            showToast('Đã hủy đơn hàng');
+            setTimeout(() => location.reload(), 800);
+        } catch (e) {
+            showToast(e.message, 'error');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        if (!getCurrentUser() || !localStorage.getItem(TOKEN_KEY)) {
+            location.href = 'auth.html';
+            return;
+        }
+
+        const id = new URLSearchParams(location.search).get('id');
+        const box = document.getElementById('order-content');
+
+        let order = null;
+        try {
+            order = await api('/orders/' + encodeURIComponent(id));
+        } catch (e) {
+            order = null;
+        }
+
+        if (!order) {
+            box.innerHTML = '<p class="text-center text-gray-500 py-20">Không tìm thấy đơn hàng</p>';
+            return;
+        }
+
+        const st = STATUS_MAP[order.status] || STATUS_MAP.pending;
+        const cancelBtn = order.status === 'pending'
+            ? `<button onclick="cancelOrder('${esc(order.id)}')"
+                        class="mt-6 w-full border border-red-500/60 text-red-400 hover:bg-red-500 hover:text-white py-3 text-sm uppercase tracking-wider transition-colors rounded">
+                        Hủy đơn hàng
+                   </button>`
+            : '';
+
+        box.innerHTML = `
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-8">
+                    <h1 class="font-serif text-3xl font-bold text-gold">Đơn #${esc(order.id)}</h1>
+                    <span class="text-sm uppercase tracking-wider ${st.color} font-semibold">${st.label}</span>
+                </div>
+
+                <div class="bg-cardBg border border-gray-800 rounded-lg p-6 mb-6">
+                    <h3 class="font-serif text-lg font-semibold mb-4">Sản phẩm</h3>
+                    <div class="space-y-4">
+                        ${order.items.map(i => `
+                            <div class="flex gap-4 items-center">
+                                <img src="${esc(i.image)}" class="w-16 h-20 object-cover rounded border border-gray-800">
+                                <div class="flex-1">
+                                    <p class="font-medium">${esc(i.name)}</p>
+                                    <p class="text-xs text-gray-400">${i.size}ml × ${i.qty}</p>
+                                </div>
+                                <p class="text-gold font-semibold">${formatPrice(i.price * i.qty)}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="border-t border-gray-800 mt-6 pt-4 flex justify-between">
+                        <span class="text-gray-400">Tổng cộng</span>
+                        <span class="font-serif text-xl text-gold font-bold">${formatPrice(order.total)}</span>
+                    </div>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="bg-cardBg border border-gray-800 rounded-lg p-6">
+                        <h3 class="font-serif text-lg font-semibold mb-3">Thông tin giao hàng</h3>
+                        <p class="text-sm text-gray-300">${esc(order.shipping.name)}</p>
+                        <p class="text-sm text-gray-400 mt-1">${esc(order.shipping.phone)}</p>
+                        <p class="text-sm text-gray-400 mt-1">${esc(order.shipping.address)}</p>
+                        ${order.shipping.note ? `<p class="text-sm text-gray-500 mt-2 italic">Ghi chú: ${esc(order.shipping.note)}</p>` : ''}
+                    </div>
+                    <div class="bg-cardBg border border-gray-800 rounded-lg p-6">
+                        <h3 class="font-serif text-lg font-semibold mb-3">Thanh toán</h3>
+                        <p class="text-sm text-gray-300">${order.paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : 'Chuyển khoản ngân hàng'}</p>
+                        <p class="text-sm text-gray-400 mt-2">Ngày đặt: ${new Date(order.createdAt).toLocaleString('vi-VN')}</p>
+                    </div>
+                </div>
+                ${cancelBtn}
+            `;
+    });
+</script>
+</body>
+</html>

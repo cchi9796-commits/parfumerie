@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn hàng của tôi - PARFUMERIE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { darkBg: '#121212', cardBg: '#1a1a1a', gold: '#C5A059', 'gold-light': '#dfc196' },
+                    fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased min-h-screen">
+
+<header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-gold">PARFUMERIE</a>
+        <nav class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider font-medium">
+            <a href="index.html" class="hover:text-gold transition-colors">Trang Chủ</a>
+            <a href="index.html#products" class="hover:text-gold transition-colors">Bộ Sưu Tập</a>
+            <a href="orders.html" class="text-gold">Đơn hàng</a>
+            <a href="auth.html" class="hover:text-gold transition-colors">Đăng nhập</a>
+        </nav>
+        <div class="flex items-center space-x-6">
+            <button id="cart-btn" class="relative text-gray-200 hover:text-gold transition-colors">
+                <i class="fa-solid fa-bag-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="pt-28 pb-16 max-w-4xl mx-auto px-4">
+    <h1 class="font-serif text-3xl font-bold text-gold mb-2">Đơn hàng của tôi</h1>
+    <p class="text-gray-400 text-sm mb-10">Theo dõi trạng thái các đơn hàng đã đặt</p>
+
+    <div id="orders-list" class="space-y-4">
+        <p class="text-center text-gray-500 py-20">Đang tải đơn hàng...</p>
+    </div>
+</main>
+
+<!-- Cart Drawer -->
+<div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+    <div id="cart-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+    <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+        <div class="w-screen max-w-md bg-cardBg border-l border-gray-800 flex flex-col shadow-2xl">
+            <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+                <h2 class="font-serif text-xl font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-bag-shopping text-gold"></i> Giỏ Hàng
+                </h2>
+                <button id="close-cart" class="text-gray-400 hover:text-gold text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+            <div class="p-6 border-t border-gray-800 bg-darkBg">
+                <div class="flex justify-between mb-4">
+                    <span class="text-gray-400">Tổng tạm tính:</span>
+                    <span id="cart-total" class="font-serif text-lg text-gold">0 đ</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors">
+                    Tiến Hành Thanh Toán
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    const STATUS_MAP = {
+        pending:   { label: 'Chờ xác nhận',  color: 'text-yellow-400 border-yellow-400/40' },
+        confirmed: { label: 'Đã xác nhận',   color: 'text-blue-400 border-blue-400/40' },
+        shipping:  { label: 'Đang giao',     color: 'text-purple-400 border-purple-400/40' },
+        completed: { label: 'Hoàn thành',    color: 'text-green-400 border-green-400/40' },
+        cancelled: { label: 'Đã hủy',        color: 'text-red-400 border-red-400/40' }
+    };
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        if (!getCurrentUser() || !localStorage.getItem(TOKEN_KEY)) {
+            showToast('Vui lòng đăng nhập', 'error');
+            setTimeout(() => location.href = 'auth.html', 800);
+            return;
+        }
+
+        const list = document.getElementById('orders-list');
+        let orders = [];
+        try {
+            orders = await api('/orders');   // server đã sắp xếp mới nhất trước
+        } catch (e) {
+            list.innerHTML = '<p class="text-center text-red-400 py-20">' + esc(e.message) + '</p>';
+            return;
+        }
+
+        if (orders.length === 0) {
+            list.innerHTML = `
+                    <div class="text-center py-20 text-gray-500">
+                        <i class="fa-solid fa-box-open text-5xl mb-4 opacity-40"></i>
+                        <p>Bạn chưa có đơn hàng nào</p>
+                        <a href="index.html#products" class="inline-block mt-6 text-gold hover:underline text-sm">Mua sắm ngay →</a>
+                    </div>`;
+            return;
+        }
+
+        list.innerHTML = orders.map(o => {
+            const st = STATUS_MAP[o.status] || STATUS_MAP.pending;
+            return `
+                <div class="bg-cardBg border border-gray-800 rounded-lg p-6 hover:border-gold/40 transition-colors">
+                    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                        <div>
+                            <span class="font-serif text-lg font-semibold">#${esc(o.id)}</span>
+                            <span class="text-xs text-gray-500 ml-3">${new Date(o.createdAt).toLocaleString('vi-VN')}</span>
+                        </div>
+                        <span class="text-xs uppercase tracking-wider px-3 py-1 border rounded ${st.color}">${st.label}</span>
+                    </div>
+                    <div class="text-sm text-gray-400 mb-3">
+                        ${o.items.map(i => `${esc(i.name)} (${i.size}ml) × ${i.qty}`).join(' • ')}
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="font-serif text-gold text-lg font-bold">${formatPrice(o.total)}</span>
+                        <a href="order-detail.html?id=${encodeURIComponent(o.id)}"
+                           class="text-sm text-gray-300 hover:text-gold transition-colors flex items-center gap-1">
+                            Xem chi tiết <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>`;
+        }).join('');
+    });
+</script>
+</body>
+</html>

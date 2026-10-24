@@ -17,7 +17,8 @@ public class Dtos {
     public record VariantDto(Long id, int sizeMl, int price, int stock) {}
 
     public record ProductSummary(Long id, String name, String brand, String gender,
-                                 String imageUrl, int price, int size, Long variantId) {}
+                                 String imageUrl, int price, int size, Long variantId,
+                                 String description) {}
 
     public record ProductDetail(Long id, String name, String brand, String gender,
                                 String description, String imageUrl, List<VariantDto> variants) {}
