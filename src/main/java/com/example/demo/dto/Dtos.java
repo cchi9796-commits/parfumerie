@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 import java.util.List;
 
@@ -40,4 +42,24 @@ public class Dtos {
                           String phone, String address, String role) {}
 
     public record AuthResponse(String token, UserDto user) {}
+
+    // ---- Đơn hàng ----
+    public record ItemRequest(@NotNull Long variantId, @Min(1) int qty) {}
+
+    public record ShippingRequest(@NotBlank String name, @NotBlank String phone,
+                                  @NotBlank String address, String note) {}
+
+    public record OrderRequest(@NotEmpty List<@Valid ItemRequest> items,
+                               @NotNull @Valid ShippingRequest shipping,
+                               @NotBlank String paymentMethod,
+                               String orderCode) {}
+
+    // Tên trường khớp với những gì orders.html và order-detail.html đang dùng
+    public record OrderItemDto(String name, String image, int size, int price, int qty) {}
+
+    public record OrderDto(String id, long total, String status, String paymentMethod,
+                           ShippingRequest shipping, LocalDateTime createdAt,
+                           String userEmail, List<OrderItemDto> items) {}
+
+    public record StatusRequest(@NotBlank String status) {}
 }
