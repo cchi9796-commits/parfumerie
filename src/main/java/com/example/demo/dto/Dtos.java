@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -24,4 +26,18 @@ public class Dtos {
     public record ProductRequest(@NotBlank String name, @NotBlank String brandName,
                                  @NotBlank String gender, String description, String imageUrl,
                                  @NotEmpty List<@Valid VariantRequest> variants) {}
+    // ---- Tài khoản ----
+    public record RegisterRequest(@NotBlank String name,
+                                  @NotBlank @Email String email,
+                                  @Size(min = 6) String password) {}
+
+    public record LoginRequest(@NotBlank String email, @NotBlank String password) {}
+
+    public record UpdateProfileRequest(@NotBlank String name, String phone,
+                                       String address, String password) {}
+
+    public record UserDto(Long id, String name, String email,
+                          String phone, String address, String role) {}
+
+    public record AuthResponse(String token, UserDto user) {}
 }
