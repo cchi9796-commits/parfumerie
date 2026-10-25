@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<company xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="Company.xsd">
+
+    <employee id="E01" gender="male">
+        <name>Nguyen Van An</name>
+        <user>an12345</user>
+    </employee>
+
+</company>

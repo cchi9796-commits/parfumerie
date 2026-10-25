@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="company">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="employee" minOccurs="1" maxOccurs="50">
+                 <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="3"/>
+                                    <xs:pattern value="[a-zA-Z ]+"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        <xs:element name="user">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:minLength value="6"/>
+                                    <xs:pattern value="[a-zA-Z][a-zA-Z0-9]*"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:element>
+                        
+
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                    <xs:pattern value="E[0-9]{2}"/>
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute >
+                        <xs:attribute name="gender" use="required">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:string"> 
+                                  <xs:enumeration value="male"/>
+                                  <xs:enumeration value="female"/>
+                                 
+                                </xs:restriction>
+                            </xs:simpleType>
+                        </xs:attribute>
+                 </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
