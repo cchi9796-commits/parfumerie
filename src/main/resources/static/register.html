@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản - L'Élixir Nước Hoa Pháp</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#E6C987',
+                            dark: '#9A7B38'
+                        },
+                        darkBg: '#121212',
+                        cardBg: '#1E1E1E'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER NHỎ -->
+    <header class="w-full bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="font-serif text-2xl md:text-3xl font-bold tracking-widest text-gold">
+                 PARFUMERIE
+            </a>
+            <a href="index.html" class="text-sm text-gray-400 hover:text-gold transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Về Trang Chủ
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN REGISTER SECTION -->
+    <main class="flex-1 flex items-center justify-center px-4 py-12">
+        <div class="max-w-md w-full bg-cardBg border border-gray-800 rounded-lg shadow-2xl p-8 relative overflow-hidden">
+            
+            <!-- Hiệu ứng viền sáng trang trí -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+            <div class="text-center mb-8">
+                <span class="text-gold uppercase tracking-[0.2em] text-[10px] font-semibold mb-2 block">Thành viên độc quyền</span>
+                <h2 class="font-serif text-2xl md:text-3xl font-bold text-gray-100">Tạo Tài Khoản Mới</h2>
+            </div>
+
+            <!-- FORM ĐĂNG KÝ -->
+            <form id="register-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Họ Và Tên</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-regular fa-user"></i>
+                        </span>
+                        <input type="text" id="reg-name" required placeholder="Nguyễn Văn A" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Email Của Bạn</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input type="email" id="reg-email" required placeholder="name@example.com" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Mật Khẩu</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="reg-password" required placeholder="••••••••" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Xác Nhận Mật Khẩu</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="reg-confirm-password" required placeholder="••••••••" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div class="flex items-center text-xs pt-1">
+                    <label class="flex items-center text-gray-400 cursor-pointer">
+                        <input type="checkbox" required class="mr-2 rounded accent-gold"> Tôi đồng ý với <a href="#" class="text-gold hover:underline ml-1">Điều khoản & Dịch vụ</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors rounded shadow-lg mt-4">
+                    Đăng Ký Ngay
+                </button>
+            </form>
+
+            <!-- CHUYỂN HƯỚNG SANG ĐĂNG NHẬP -->
+            <div class="mt-6 text-center text-sm text-gray-400">
+                Đã có tài khoản? <a href="auth.html" class="text-gold font-semibold hover:underline">Đăng nhập tại đây</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER NHỎ -->
+    <footer class="bg-cardBg border-t border-gray-800 py-6 text-center text-xs text-gray-500 font-light">
+        &copy; 2026 L'Élixir Perfume House. All rights reserved.
+    </footer>
+
+    <!-- Script Riêng Cho Register -->
+
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('register-form')?.addEventListener('submit', async e => {
+            e.preventDefault();
+
+            const password = document.getElementById('reg-password').value;
+            const confirmPassword = document.getElementById('reg-confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showToast('Mật khẩu xác nhận không khớp', 'error');
+                return;
+            }
+
+            try {
+                const res = await api('/auth/register', 'POST', {
+                    name: document.getElementById('reg-name').value.trim(),
+                    email: document.getElementById('reg-email').value.trim(),
+                    password: password
+                });
+
+                setSession(res.token, res.user);
+                showToast('Đăng ký thành công');
+                setTimeout(() => {
+                    location.href = 'index.html';
+                }, 700);
+
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARFUMERIE | Nước Hoa Chính Hãng – Magic Of Your Emotions</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#E6C987',
+                            dark: '#9A7B38'
+                        },
+                        darkBg: '#121212',
+                        cardBg: '#1E1E1E'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-gold selection:text-black">
+
+    <!-- HEADER SECTION -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="index.html" class="text-center leading-tight">
+                <span class="font-serif text-2xl md:text-3xl font-bold tracking-widest text-gold block">PARFUMERIE</span>
+                <span class="text-[10px] tracking-[0.2em] text-gray-400 uppercase">Magic Of Your Emotions</span>
+            </a>
+
+            <!-- Navigation Desktop -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm uppercase tracking-wider font-medium">
+                <a href="#home" class="hover:text-gold transition-colors">Trang Chủ</a>
+                <a href="#about" class="hover:text-gold transition-colors">Giới Thiệu</a>
+                <a href="#products" class="hover:text-gold transition-colors">Nước Hoa</a>
+                <a href="#products" class="hover:text-gold transition-colors">Thương Hiệu</a>
+                <a href="#contact" class="hover:text-gold transition-colors">Liên Hệ</a>
+                <a href="auth.html" class="hover:text-gold transition-colors">Đăng nhập</a>
+            </nav>
+
+            <!-- Actions (Cart & Mobile Toggle) -->
+            <div class="flex items-center space-x-6">
+                <!-- Cart Button -->
+                <button id="cart-btn" class="relative text-gray-200 hover:text-gold transition-colors focus:outline-none">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="menu-btn" class="md:hidden text-gray-200 hover:text-gold focus:outline-none text-xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-darkBg border-b border-gray-800 px-6 py-4 space-y-3">
+            <a href="#home" class="block text-sm uppercase tracking-wider hover:text-gold">Trang Chủ</a>
+            <a href="#about" class="block text-sm uppercase tracking-wider hover:text-gold">Giới Thiệu</a>
+            <a href="#products" class="block text-sm uppercase tracking-wider hover:text-gold">Nước Hoa</a>
+            <a href="#products" class="block text-sm uppercase tracking-wider hover:text-gold">Thương Hiệu</a>
+            <a href="#contact" class="block text-sm uppercase tracking-wider hover:text-gold">Liên Hệ</a>
+            <a href="auth.html" class="block text-sm uppercase tracking-wider hover:text-gold">Đăng nhập</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Overlay Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=1920&q=80" alt="Perfume Hero" class="w-full h-full object-cover opacity-30 scale-105 animate-pulse duration-1000">
+            <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/60 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4 sm:px-6">
+            <span class="text-gold uppercase tracking-[0.3em] text-xs sm:text-sm font-semibold mb-4 block">Nghệ thuật điều hương Pháp</span>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+                Hương Thơm Định Nghĩa <span class="text-gold italic font-normal">Phong Cách</span> Của Bạn
+            </h1>
+            <p class="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto mb-10 font-light">
+                Khám phá những nốt hương tinh tế được chắt lọc từ thiên nhiên, mang lại sự sang trọng, lôi cuốn và dấu ấn riêng biệt cho người sở hữu.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#products" class="bg-gold text-black font-semibold px-8 py-4 rounded-none hover:bg-gold-light transition-all tracking-wider uppercase text-sm">
+                    Khám Phá Ngay
+                </a>
+                <a href="#about" class="border border-gold text-gold font-semibold px-8 py-4 rounded-none hover:bg-gold hover:text-black transition-all tracking-wider uppercase text-sm">
+                    Câu Chuyện Thương Hiệu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-cardBg/50 relative border-t border-gray-800/60">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Image Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80" alt="Perfume Bottle" class="w-full h-80 object-cover rounded shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80" alt="Perfume Ingredients" class="w-full h-80 object-cover rounded shadow-lg mt-8">
+                </div>
+                <!-- Content -->
+                <div>
+                    <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">Di sản & Đam mê</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold mb-6">Mỗi Chai Nước Hoa Là Một Câu Chuyện Riêng Biệt</h2>
+                    <p class="text-gray-400 font-light leading-relaxed mb-6">
+                        Được sáng lập bởi những nghệ nhân pha chế hương thơm hàng đầu tại Grasse, Pháp, PARFUMERIE kết hợp giữa kỹ thuật truyền thống và sự sáng tạo hiện đại để tạo ra những kiệt tác mùi hương độc bản.
+                    </p>
+                    <p class="text-gray-400 font-light leading-relaxed mb-8">
+                        Chúng tôi cam kết sử dụng nguyên liệu thuần khiết nhất, lưu hương lâu trên da và thân thiện tuyệt đối với sức khỏe người dùng.
+                    </p>
+                    <div class="grid grid-cols-3 gap-6 border-t border-gray-800 pt-6">
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-gold">100%</h3>
+                            <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Nhập Khẩu Pháp</p>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-gold">12h+</h3>
+                            <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Độ Lưu Hương</p>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-gold">50K+</h3>
+                            <p class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Khách Hàng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">Bộ sưu tập độc quyền</span>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold">Sản Phẩm Nổi Bật</h2>
+            <div class="w-16 h-[2px] bg-gold mx-auto mt-4"></div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="flex flex-col lg:flex-row gap-4 mb-10 max-w-4xl mx-auto">
+            <div class="relative flex-1">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+                <input type="text" id="search-input" placeholder="Tìm kiếm nước hoa, thương hiệu..."
+                    class="w-full bg-cardBg border border-gray-800 rounded-none pl-11 pr-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+            <select id="filter-gender"
+                class="bg-cardBg border border-gray-800 rounded-none px-4 py-3 text-sm focus:outline-none focus:border-gold text-gray-300 min-w-[140px]">
+                <option value="all">Tất cả giới tính</option>
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Unisex">Unisex</option>
+            </select>
+            <select id="filter-brand"
+                class="bg-cardBg border border-gray-800 rounded-none px-4 py-3 text-sm focus:outline-none focus:border-gold text-gray-300 min-w-[160px]">
+                <option value="all">Tất cả thương hiệu</option>
+                <option value="Chanel">Chanel</option>
+                <option value="Dior">Dior</option>
+                <option value="Creed">Creed</option>
+                <option value="Tom Ford">Tom Ford</option>
+                <option value="YSL">YSL</option>
+                <option value="Le Labo">Le Labo</option>
+                <option value="Kilian">Kilian</option>
+                <option value="Versace">Versace</option>
+                <option value="Gucci">Gucci</option>
+                <option value="MFK">Maison Francis Kurkdjian</option>
+            </select>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+
+            <!-- 1 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Dior Sauvage EDP" data-gender="Nam" data-brand="Dior">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <span class="absolute top-3 left-3 z-10 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Best Seller</span>
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" alt="Dior Sauvage" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Dior • Nam</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Dior Sauvage EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Hương cay nồng, tươi mát với bergamot và ambroxan – biểu tượng nam tính hiện đại.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">375.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Dior Sauvage EDP', 375000, 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Creed Aventus" data-gender="Nam" data-brand="Creed">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <span class="absolute top-3 left-3 z-10 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Iconic</span>
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" alt="Creed Aventus" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Creed • Nam</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Creed Aventus For Men EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Dứa, bạch đàn và xạ hương – hương thơm quyền lực, thành công.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">795.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Creed Aventus For Men EDP', 795000, 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Chanel Bleu De Chanel" data-gender="Nam" data-brand="Chanel">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=700&q=80" alt="Bleu de Chanel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Chanel • Nam</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Chanel Bleu De Chanel EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Gỗ, citrus và hương biển – thanh lịch, tinh tế, đa dụng.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">455.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Chanel Bleu De Chanel EDP', 455000, 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="YSL Libre" data-gender="Nữ" data-brand="YSL">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <span class="absolute top-3 left-3 z-10 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Hot</span>
+                    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=700&q=80" alt="YSL Libre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">YSL • Nữ</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">YSL Libre EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Hoa cam, lavender và vanilla – tự do, quyến rũ, hiện đại.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">395.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('YSL Libre EDP', 395000, 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Tom Ford Ombre Leather" data-gender="Unisex" data-brand="Tom Ford">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=700&q=80" alt="Tom Ford Ombre Leather" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Tom Ford • Unisex</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Tom Ford Ombré Leather EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Da thuộc, cardamom và jasmine – ấm áp, quyến rũ, sang trọng.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">575.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Tom Ford Ombré Leather EDP', 575000, 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Le Labo Another 13" data-gender="Unisex" data-brand="Le Labo">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <span class="absolute top-3 left-3 z-10 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Niche</span>
+                    <img src="https://images.unsplash.com/photo-1595425970375-c71cb879413a?auto=format&fit=crop&w=700&q=80" alt="Le Labo Another 13" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Le Labo • Unisex</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Le Labo Another 13 EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Ambroxan, jasmine và moss – ethereal, sạch sẽ, cực kỳ đặc biệt.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">875.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Le Labo Another 13 EDP', 875000, 'https://images.unsplash.com/photo-1595425970375-c71cb879413a?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Baccarat Rouge 540" data-gender="Unisex" data-brand="MFK">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <span class="absolute top-3 left-3 z-10 bg-gold text-black text-[10px] font-bold uppercase tracking-widest px-2.5 py-1">Limited</span>
+                    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=700&q=80" alt="Baccarat Rouge 540" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">MFK • Unisex</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">MFK Baccarat Rouge 540 EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Saffron, amberwood và cedar – ngọt ấm, sang trọng, cực kỳ nổi bật.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">795.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('MFK Baccarat Rouge 540 EDP', 795000, 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Kilian Black Phantom" data-gender="Unisex" data-brand="Kilian">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80" alt="Kilian Black Phantom" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Kilian • Unisex</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Kilian Black Phantom EDP</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Rum, đường và cà phê – ngọt ngào, bí ẩn như đêm tối.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">995.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Kilian Black Phantom EDP', 995000, 'https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="bg-cardBg rounded border border-gray-800 group hover:border-gold/50 transition-all duration-300 flex flex-col justify-between overflow-hidden" data-name="Versace Eros" data-gender="Nam" data-brand="Versace">
+                <div class="relative overflow-hidden bg-black/40 h-80">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80" alt="Versace Eros" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-6 flex flex-col flex-grow justify-between">
+                    <div>
+                        <span class="text-xs text-gray-400 tracking-wider uppercase block mb-1">Versace • Nam</span>
+                        <h3 class="font-serif text-xl font-bold mb-2 group-hover:text-gold transition-colors">Versace Eros For Men EDT</h3>
+                        <p class="text-gray-400 text-sm font-light line-clamp-2 mb-4">Bạc hà, táo xanh và vani – tươi mát, nam tính, quyến rũ.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-800">
+                        <div>
+                            <span class="text-xs text-gray-500 block">Chiết từ</span>
+                            <span class="font-serif text-lg font-bold text-gold">285.000 ₫</span>
+                        </div>
+                        <button onclick="addToCart('Versace Eros For Men EDT', 285000, 'https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=700&q=80', 10)" class="bg-transparent border border-gold text-gold hover:bg-gold hover:text-black px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-all">Thêm</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER SECTION -->
+    <footer id="contact" class="bg-cardBg border-t border-gray-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1 -->
+                <div>
+                    <a href="#" class="font-serif text-2xl font-bold tracking-widest text-gold block mb-4">
+                       PARFUMERIE
+                    </a>
+                    <p class="text-gray-400 text-sm font-light leading-relaxed mb-4">
+                        Cửa hàng nước hoa chính hãng – trải nghiệm mùi hương đầy thi vị, tôn vinh nét đẹp và cá tính của bạn.
+                    </p>
+                    <div class="flex space-x-4 text-gray-300">
+                        <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="hover:text-gold transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="font-serif font-semibold text-lg mb-4 text-gray-200">Liên Kết Nhanh</h4>
+                    <ul class="space-y-2 text-sm text-gray-400 font-light">
+                        <li><a href="#home" class="hover:text-gold transition-colors">Trang Chủ</a></li>
+                        <li><a href="#about" class="hover:text-gold transition-colors">Về Chúng Tôi</a></li>
+                        <li><a href="#products" class="hover:text-gold transition-colors">Bộ Sưu Tập</a></li>
+                        <li><a href="#contact" class="hover:text-gold transition-colors">Chính Sách Bảo Mật</a></li>
+                    </ul>
+                </div>
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="font-serif font-semibold text-lg mb-4 text-gray-200">Hỗ Trợ Khách Hàng</h4>
+                    <ul class="space-y-2 text-sm text-gray-400 font-light">
+                        <li><a href="#" class="hover:text-gold transition-colors">Hướng Dẫn Mua Hàng</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Chính Sách Đổi Trả</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Kiểm Tra Đơn Hàng</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Hệ Thống Cửa Hàng</a></li>
+                    </ul>
+                </div>
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="font-serif font-semibold text-lg mb-4 text-gray-200">Liên Hệ Với Chúng Tôi</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 font-light">
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-gold mt-1"></i>
+                            <span>đại học công nghiệp Hà Nội </span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-gold"></i>
+                            <span>+84 901 234 567</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-gold"></i>
+                            <span>0888 070 308</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 text-center text-xs text-gray-500 font-light">
+                &copy; 2026 PARFUMERIE. All rights reserved. Designed with elegance.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART DRAWER (MODAL) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <!-- Backdrop -->
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm transition-opacity"></div>
+
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-cardBg border-l border-gray-800 flex flex-col shadow-2xl">
+                <!-- Cart Header -->
+                <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+                    <h2 class="font-serif text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-gold"></i> Giỏ Hàng Của Bạn
+                    </h2>
+                    <button id="close-cart" class="text-gray-400 hover:text-gold text-lg focus:outline-none">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Body / Items List -->
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Dynamic Items will be inserted here -->
+                </div>
+
+                <!-- Cart Footer -->
+                <div class="p-6 border-t border-gray-800 bg-darkBg">
+                    <div class="flex justify-between text-base font-semibold mb-4">
+                        <span class="text-gray-400">Tổng Tạm Tính:</span>
+                        <span id="cart-total" class="font-serif text-lg text-gold">0 đ</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-6 font-light">Phí vận chuyển và thuế sẽ được tính khi thanh toán.</p>
+                    <button onclick="checkout()" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors">
+                        Tiến Hành Thanh Toán
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script File -->
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân - PARFUMERIE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#121212',
+                        cardBg: '#1a1a1a',
+                        gold: '#C5A059',
+                        'gold-light': '#dfc196'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased min-h-screen">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="font-serif text-2xl font-bold tracking-widest text-gold">PARFUMERIE</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider font-medium">
+                <a href="index.html" class="hover:text-gold transition-colors">Trang Chủ</a>
+                <a href="index.html#products" class="hover:text-gold transition-colors">Bộ Sưu Tập</a>
+                <a href="orders.html" class="hover:text-gold transition-colors">Đơn hàng</a>
+                <a href="auth.html" class="hover:text-gold transition-colors">Đăng nhập</a>
+            </nav>
+            <div class="flex items-center space-x-6">
+                <button id="cart-btn" class="relative text-gray-200 hover:text-gold transition-colors">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16 max-w-3xl mx-auto px-4">
+        <h1 class="font-serif text-3xl font-bold text-gold mb-2">Thông tin cá nhân</h1>
+        <p class="text-gray-400 text-sm mb-10">Cập nhật thông tin tài khoản của bạn</p>
+
+        <form id="profile-form" class="bg-cardBg border border-gray-800 rounded-lg p-8 space-y-6">
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Họ và tên</label>
+                <input type="text" id="pf-name" required
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Email</label>
+                <input type="email" id="pf-email" required
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Số điện thoại</label>
+                <input type="tel" id="pf-phone"
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Địa chỉ giao hàng mặc định</label>
+                <textarea id="pf-address" rows="3"
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors resize-none"></textarea>
+            </div>
+
+            <hr class="border-gray-800">
+
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Mật khẩu mới (để trống nếu không đổi)</label>
+                <input type="password" id="pf-password" placeholder="••••••••"
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Xác nhận mật khẩu mới</label>
+                <input type="password" id="pf-password2" placeholder="••••••••"
+                    class="w-full bg-darkBg border border-gray-700 rounded px-4 py-3 text-sm focus:outline-none focus:border-gold transition-colors">
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <button type="submit"
+                    class="flex-1 bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors rounded">
+                    Lưu thay đổi
+                </button>
+                <a href="index.html"
+                    class="px-6 py-3.5 border border-gray-700 text-gray-300 text-sm uppercase tracking-wider hover:border-gold hover:text-gold transition-colors rounded text-center">
+                    Hủy
+                </a>
+            </div>
+        </form>
+    </main>
+
+    <!-- Cart Drawer (shared) -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div id="cart-backdrop" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-cardBg border-l border-gray-800 flex flex-col shadow-2xl">
+                <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+                    <h2 class="font-serif text-xl font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-gold"></i> Giỏ Hàng
+                    </h2>
+                    <button id="close-cart" class="text-gray-400 hover:text-gold text-lg"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+                <div class="p-6 border-t border-gray-800 bg-darkBg">
+                    <div class="flex justify-between mb-4">
+                        <span class="text-gray-400">Tổng tạm tính:</span>
+                        <span id="cart-total" class="font-serif text-lg text-gold">0 đ</span>
+                    </div>
+                    <button onclick="checkout()" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors">
+                        Tiến Hành Thanh Toán
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if (!user) {
+                showToast('Vui lòng đăng nhập', 'error');
+                setTimeout(() => location.href = 'auth.html', 800);
+                return;
+            }
+            document.getElementById('pf-name').value = user.name || '';
+            document.getElementById('pf-email').value = user.email || '';
+            document.getElementById('pf-phone').value = user.phone || '';
+            document.getElementById('pf-address').value = user.address || '';
+
+            document.getElementById('profile-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('pf-name').value.trim();
+                const email = document.getElementById('pf-email').value.trim();
+                const phone = document.getElementById('pf-phone').value.trim();
+                const address = document.getElementById('pf-address').value.trim();
+                const pw = document.getElementById('pf-password').value;
+                const pw2 = document.getElementById('pf-password2').value;
+
+                if (pw && pw !== pw2) {
+                    showToast('Mật khẩu xác nhận không khớp', 'error');
+                    return;
+                }
+
+                const updated = { ...user, name, email, phone, address };
+                if (pw) updated.password = pw;
+                setCurrentUser(updated);
+                showToast('Đã cập nhật thông tin thành công');
+                renderAuthLinks();
+            });
+        });
+    </script>
+</body>
+</html>

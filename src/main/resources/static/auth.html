@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Khoản - L'Élixir Nước Hoa Pháp</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Custom CSS Riêng cho trang Auth -->
+    <link rel="stylesheet" href="auth-style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    },
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C5A059',
+                            light: '#E6C987',
+                            dark: '#9A7B38'
+                        },
+                        darkBg: '#121212',
+                        cardBg: '#1E1E1E'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-gold selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER / NAVBAR NHỎ -->
+    <header class="w-full bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="index.html" class="font-serif text-2xl md:text-3xl font-bold tracking-widest text-gold">
+                L'ÉLIXIR
+            </a>
+            <a href="index.html" class="text-sm text-gray-400 hover:text-gold transition-colors flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Về Trang Chủ
+            </a>
+        </div>
+    </header>
+
+    <!-- MAIN AUTH SECTION -->
+    <main class="flex-1 flex items-center justify-center px-4 py-12">
+        <div class="max-w-md w-full bg-cardBg border border-gray-800 rounded-lg shadow-2xl p-8 relative overflow-hidden">
+            
+            <!-- Hiệu ứng viền sáng -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent"></div>
+
+            <!-- TAB SWITCHER (ĐĂNG NHẬP / ĐĂNG KÝ) -->
+            <div class="flex border-b border-gray-800 mb-8">
+                <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 pb-3 text-center font-serif text-lg font-bold text-gold border-b-2 border-gold transition-all">
+                    Đăng Nhập
+                </button>
+              
+            </div>
+
+            <!-- FORM ĐĂNG NHẬP -->
+            <form id="login-form" class="space-y-5">
+                <h2 class="text-xl font-serif font-bold text-center mb-6 text-gray-200">Chào Mừng Trở Lại</h2>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Email Của Bạn</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input type="email" id="login-email" required placeholder="name@example.com" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Mật Khẩu</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="login-password" required placeholder="••••••••" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-xs">
+                    <label class="flex items-center text-gray-400 cursor-pointer">
+                        <input type="checkbox" class="mr-2 rounded accent-gold"> Ghi nhớ tài khoản
+                    </label>
+                    <a href="#" class="text-gold hover:underline">Quên mật khẩu?</a>
+                </div>
+
+                <button type="submit" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors rounded shadow-lg mt-2">
+                    Đăng Nhập
+                </button>
+            </form>
+
+            <!-- FORM ĐĂNG KÝ -->
+            <form id="register-form" class="space-y-5 hidden">
+                <h2 class="text-xl font-serif font-bold text-center mb-6 text-gray-200">Tạo Tài Khoản Mới</h2>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Họ Và Tên</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-regular fa-user"></i>
+                        </span>
+                        <input type="text" id="reg-name" required placeholder="Nguyễn Văn A" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Email</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        <input type="email" id="reg-email" required placeholder="name@example.com" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-gray-400 mb-2">Mật Khẩu</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500">
+                            <i class="fa-solid fa-lock"></i>
+                        </span>
+                        <input type="password" id="reg-password" required placeholder="••••••••" class="w-full bg-darkBg border border-gray-800 rounded px-4 py-3 pl-10 text-sm text-gray-200 focus:outline-none focus:border-gold transition-colors">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-gold text-black font-semibold py-3.5 uppercase tracking-wider text-sm hover:bg-gold-light transition-colors rounded shadow-lg mt-2">
+                    Đăng Ký Tài Khoản
+                </button>
+            </form>
+
+            <!-- MẠNG XÃ HỘI -->
+            <div class="mt-8 pt-6 border-t border-gray-800 text-center">
+                <p class="text-xs text-gray-500 mb-4 uppercase tracking-wider">Hoặc tiếp tục với</p>
+                <div class="flex gap-4">
+                    <button class="flex-1 bg-darkBg border border-gray-800 py-2.5 rounded text-sm hover:border-gold transition-colors flex items-center justify-center gap-2 text-gray-300">
+                        <i class="fa-brands fa-google text-red-500"></i> Google
+                    </button>
+                    <button class="flex-1 bg-darkBg border border-gray-800 py-2.5 rounded text-sm hover:border-gold transition-colors flex items-center justify-center gap-2 text-gray-300">
+                        <i class="fa-brands fa-facebook text-blue-500"></i> Facebook
+                    </button>
+                </div>
+            </div>
+<!-- Thẻ div bọc bên ngoài giúp căn giữa theo chiều ngang -->
+<div class="flex justify-center w-full my-8">
+    
+    <!-- Thêm max-w hoặc w-auto tùy ý -->
+    <!-- Khối bọc giúp căn giữa hoàn toàn theo chiều ngang -->
+<div class="flex justify-center items-center w-full my-8">
+    
+    <!-- Thẻ a chứa chữ Đăng Ký và căn giữa nội dung bên trong -->
+    <a href="register.html" class="inline-block px-8 pb-3 text-center font-serif text-lg font-bold text-gray-400 border-b-2 border-transparent hover:text-gold hover:border-gold transition-all">
+        Đăng Ký
+    </a>
+
+</div>
+
+</div>
+        </div>
+    </main>
+
+    <!-- FOOTER NHỎ -->
+    <footer class="bg-cardBg border-t border-gray-800 py-6 text-center text-xs text-gray-500 font-light">
+        &copy; 2026 L'Élixir Perfume House. All rights reserved.
+    </footer>
+
+    <!-- Script Riêng Cho Auth -->
+    
+    <script src="script.js"></script>
+    <script>
+    function switchTab(tab) {
+        const loginForm = document.getElementById('login-form');
+        const regForm = document.getElementById('register-form');
+        const loginBtn = document.getElementById('tab-login-btn');
+        const regBtn = document.getElementById('tab-register-btn');
+        if (tab === 'login') {
+            loginForm?.classList.remove('hidden');
+            regForm?.classList.add('hidden');
+            loginBtn?.classList.add('text-gold', 'border-gold');
+            loginBtn?.classList.remove('text-gray-400', 'border-transparent');
+            regBtn?.classList.remove('text-gold', 'border-gold');
+            regBtn?.classList.add('text-gray-400', 'border-transparent');
+        } else {
+            regForm?.classList.remove('hidden');
+            loginForm?.classList.add('hidden');
+            regBtn?.classList.add('text-gold', 'border-gold');
+            regBtn?.classList.remove('text-gray-400', 'border-transparent');
+            loginBtn?.classList.remove('text-gold', 'border-gold');
+            loginBtn?.classList.add('text-gray-400', 'border-transparent');
+        }
+    }
+
+    document.getElementById('login-form')?.addEventListener('submit', async e => {
+        e.preventDefault();
+        try {
+            const res = await api('/auth/login', 'POST', {
+                email: document.getElementById('login-email').value.trim(),
+                password: document.getElementById('login-password').value
+            });
+            setSession(res.token, res.user);
+            showToast('Đăng nhập thành công');
+            setTimeout(() => location.href = 'index.html', 700);
+        } catch (err) { showToast(err.message, 'error'); }
+    });
+    </script>
+
+</body>
+</html>
